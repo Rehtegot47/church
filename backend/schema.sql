@@ -1,0 +1,59 @@
+-- RCCG Grace Ville Agbara — MySQL schema
+-- Run once: CREATE DATABASE church_db; then mysql -u root -p church_db < schema.sql
+-- (The API also auto-creates these tables on first boot.)
+
+CREATE TABLE IF NOT EXISTS admins (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(191) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS weekly_services (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  date DATE NOT NULL,
+  theme VARCHAR(255) NOT NULL,
+  minister VARCHAR(255) NOT NULL,
+  bible_text VARCHAR(255) DEFAULT '',
+  service_time VARCHAR(50) DEFAULT '8:00 AM',
+  venue TEXT,
+  youtube_url VARCHAR(500) DEFAULT '',
+  image_url VARCHAR(500) DEFAULT '',
+  announcements TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS gallery (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  url VARCHAR(1000) NOT NULL,
+  caption VARCHAR(255) NOT NULL,
+  category VARCHAR(50) DEFAULT 'Service',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS sermons (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  pastor VARCHAR(255) NOT NULL,
+  date DATE,
+  youtube VARCHAR(500) DEFAULT '',
+  category VARCHAR(100) DEFAULT '',
+  description TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS messages (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(191) NOT NULL,
+  email VARCHAR(191) NOT NULL,
+  message TEXT NOT NULL,
+  is_read TINYINT(1) DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS newsletter (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  email VARCHAR(191) NOT NULL UNIQUE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

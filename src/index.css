@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+/* Church Theme */
+@theme {
+  --color-primary: #1a3a5f;
+  --color-primary-light: #2a5a8f;
+  --color-accent: #c9a86a;
+  --color-accent-hover: #b89755;
+  --color-dark: #0f1e33;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
