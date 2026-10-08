@@ -15,7 +15,11 @@ const useCloud = !!(
   (process.env.CLOUDINARY_CLOUD_NAME && process.env.CLOUDINARY_API_KEY && process.env.CLOUDINARY_API_SECRET)
 );
 
-if (useCloud) {
+const cloudUrl = process.env.CLOUDINARY_URL || "";
+const cloudMatch = cloudUrl.match(/^cloudinary:\/\/([^:]+):([^@]+)@(.+)$/);
+if (cloudMatch) {
+  cloudinary.config({ cloud_name: cloudMatch[3], api_key: cloudMatch[1], api_secret: cloudMatch[2] });
+} else if (process.env.CLOUDINARY_CLOUD_NAME) {
   cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
